@@ -126,6 +126,7 @@
   a { color: inherit; text-decoration: none; }
   ul { list-style: none; }
   .wrap { width: min(1140px, 92%); margin: 0 auto; }
+  main, header, footer { max-width: 100vw; overflow-x: clip; }
   .serif { font-family: var(--serif); }
   .eyebrow {
     font-family: var(--serif);
@@ -239,7 +240,7 @@
     font-family: var(--serif); font-style: italic; letter-spacing: .5em; font-size: .75rem; color: rgba(74,50,56,.55);
   }
   .brow-art { position: absolute; left: 50%; top: 42%; transform: translate(-50%,-50%); width: 72%; }
-  .brow-art path { stroke: var(--cocoa); fill: none; stroke-linecap: round; stroke-width: 1.4; opacity: .85; }
+  .brow-art path { stroke: var(--cocoa); fill: none; stroke-linecap: round; stroke-width: 1.6; opacity: .85; }
   .brow-art .hair { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw 1.6s ease forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   .float-tag {
@@ -247,8 +248,8 @@
     padding: .75rem 1.1rem; border-radius: 16px; box-shadow: 0 14px 40px -16px rgba(74,50,56,.35);
     font-size: .82rem; display: flex; align-items: center; gap: .6rem; animation: bob 5s ease-in-out infinite;
   }
-  .float-tag b { display: block; font-size: .9rem; color: var(--cocoa); }
-  .float-tag span { color: var(--mauve); font-size: .75rem; }
+  .float-tag b { display: block; font-size: .9rem; color: var(--cocoa); white-space: nowrap; }
+  .float-tag span { color: var(--mauve); font-size: .75rem; white-space: nowrap; }
   .float-tag .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--blush); color: var(--rose-deep); font-size: 1rem; }
   .tag1 { top: 14%; left: -12%; }
   .tag2 { bottom: 20%; right: -10%; animation-delay: -2.5s; }
@@ -425,12 +426,18 @@
     .burger.open span:nth-child(2) { opacity: 0; }
     .burger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
     .burger { position: relative; z-index: 45; }
-    .hero { padding: 120px 0 80px; min-height: auto; }
+    .hero { padding: 110px 0 70px; min-height: auto; }
     .hero-grid, .about-grid, .loc-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-visual { max-width: 340px; margin: 0 auto; }
-    .tag1 { left: -6%; } .tag2 { right: -6%; }
-    .hero-meta { gap: 1.4rem; }
-    .hero-meta div b { font-size: 1.6rem; }
+    .hero-cta .btn { flex: 1 1 100%; justify-content: center; }
+    .hero-visual { width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: auto; }
+    .hero-card { position: relative; inset: auto; aspect-ratio: 5/4; border-radius: 160px 160px 24px 24px; }
+    .hero-tags { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: .8rem; }
+    .float-tag { position: static; animation: none; padding: .8rem .9rem; border-radius: 14px; border: 1px solid rgba(154,107,116,.12); box-shadow: none; }
+    .float-tag .dot { width: 30px; height: 30px; font-size: .85rem; }
+    .float-tag b { font-size: .84rem; } .float-tag span { font-size: .7rem; }
+    .hero-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: .6rem; margin-top: 2.4rem; text-align: center; }
+    .hero-meta div b { font-size: 1.5rem; }
+    .hero-meta div > span { font-size: .72rem; display: block; line-height: 1.4; margin-top: .3rem; word-break: keep-all; }
     .scroll-hint { display: none; }
     .about-badge { width: 100px; height: 100px; top: -14px; right: 6px; font-size: .6rem; }
     .about-badge b { font-size: 1.5rem; }
@@ -447,6 +454,11 @@
       border-top: 1px solid rgba(154,107,116,.15);
     }
     .sticky-bar .btn { justify-content: center; padding: .9rem 1rem; font-size: .9rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-tags { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.3rem; }
+    .no-list li b { font-size: .85rem; } .no-list li span { font-size: .68rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -502,19 +514,21 @@
       <div class="hero-meta">
         <div><b>7<span style="font-size:1rem">년+</span></b><span>뷰티과 전공 · 경력</span></div>
         <div><b>0</b><span>출혈 · 딱지 · 짱구눈썹</span></div>
-        <div><b>1:1</b><span>100% 예약제 프라이빗</span></div>
+        <div><b>1:1</b><span>100% 예약제</span></div>
       </div>
     </div>
     <div class="hero-visual reveal d2">
       <div class="hero-card">
         <svg class="brow-art" viewBox="0 0 300 120" aria-hidden="true">
-          <path class="hair" d="M20 80 C 60 40, 130 30, 200 40 S 270 60, 285 72" stroke-width="1.8"/>
-          <path class="hair" style="animation-delay:.2s" d="M30 86 C 70 50, 135 40, 200 48 S 262 66, 280 78" opacity=".6"/>
-          <path class="hair" style="animation-delay:.1s" d="M40 70 L 52 56 M58 66 L 70 50 M78 62 L 90 46 M98 58 L 110 43 M118 55 L 130 41 M138 53 L 150 40 M158 52 L 170 41 M178 52 L 190 43 M198 53 L 208 45 M216 55 L 226 48 M234 58 L 243 52 M250 62 L 258 57" opacity=".7"/>
+          <path class="hair" style="animation-delay:.1s" d="M34 94 Q42 71 57 63 M41 90 Q49 68 64 60 M48 87 Q56 65 71 58 M55 83 Q63 63 78 56 M63 80 Q70 60 85 54 M71 77 Q78 58 92 52 M79 75 Q86 56 100 50 M87 72 Q94 55 108 49 M95 70 Q103 53 116 47" opacity=".9"/>
+          <path class="hair" style="animation-delay:.35s" d="M104 68 Q111 52 124 47 M113 66 Q120 51 133 46 M123 65 Q129 50 142 45 M132 64 Q139 50 151 45 M142 63 Q148 50 160 45 M152 62 Q158 50 170 45 M162 62 Q168 50 180 46 M173 62 Q179 51 190 47 M184 62 Q190 51 200 48" opacity=".9"/>
+          <path class="hair" style="animation-delay:.6s" d="M195 63 Q201 53 211 49 M207 64 Q212 54 222 51 M219 65 Q224 56 233 53 M231 66 Q235 58 244 55 M243 68 Q248 60 256 58 M256 70 Q260 63 268 61 M269 73 Q273 66 280 64 M282 76 Q283 68 285 66" opacity=".85"/>
         </svg>
       </div>
-      <div class="float-tag tag1"><div class="dot">✦</div><div><b>페더링 전문</b><span>결 하나하나 살리는 자연눈썹</span></div></div>
-      <div class="float-tag tag2"><div class="dot">♡</div><div><b>망한 눈썹 재건·복원</b><span>타샵 실패 눈썹도 OK</span></div></div>
+      <div class="hero-tags">
+        <div class="float-tag tag1"><div class="dot">✦</div><div><b>페더링 전문</b><span>결 하나하나 살리는 자연눈썹</span></div></div>
+        <div class="float-tag tag2"><div class="dot">♡</div><div><b>망한 눈썹 재건·복원</b><span>타샵 실패 눈썹도 OK</span></div></div>
+      </div>
     </div>
   </div>
   <div class="scroll-hint">SCROLL<i></i></div>
