@@ -420,6 +420,7 @@
   .kw-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; max-width: 820px; margin: 2.4rem auto 0; }
   .kw-stats li { text-align: center; padding: 1.1rem .6rem; border-radius: 18px; background: var(--white); border: 1px solid rgba(154,107,116,.12); }
   .kw-stats li b { display: block; font-family: var(--serif); font-size: 1.9rem; font-weight: 500; color: var(--cocoa); line-height: 1; }
+  .kw-stats li .stars { color: var(--gold); font-size: 1.15rem; letter-spacing: .12em; margin-bottom: .35rem; }
   .kw-stats li span { font-size: .78rem; color: var(--mauve); }
   .review p { font-size: .95rem; color: #5b474c; font-weight: 300; margin-bottom: 1.2rem; position: relative; }
   .review .who { font-size: .8rem; color: var(--mauve); display: flex; align-items: center; gap: .6rem; }
@@ -523,7 +524,7 @@
     .etc-care p br { display: none; }
     .etc-care .btn { justify-self: stretch; justify-content: center; }
     .kw-stats { grid-template-columns: repeat(2,1fr); gap: .6rem; }
-    .kw-stats li b { font-size: 1.5rem; }
+    .kw-stats li .stars { font-size: 1rem; }
     .foot { grid-template-columns: 1fr; gap: 2rem; }
     footer { padding-bottom: 140px; }
     .float-kakao { bottom: 84px; right: 14px; padding: .8rem; }
@@ -780,12 +781,12 @@
       <p class="lead" style="margin:0 auto">네이버 플레이스에 남겨주신 <b>방문자 리뷰 81개</b> 중 실제 후기입니다.</p>
     </div>
     <ul class="kw-stats reveal">
-      <li><b>92%</b><span>친절해요</span></li>
-      <li><b>88%</b><span>시술이 꼼꼼해요</span></li>
-      <li><b>46%</b><span>맞춤 디자인을 잘해줘요</span></li>
-      <li><b>38%</b><span>상담이 자세해요</span></li>
+      <li><b class="stars">★★★★★</b><span>친절해요</span></li>
+      <li><b class="stars">★★★★★</b><span>시술이 꼼꼼해요</span></li>
+      <li><b class="stars">★★★★★</b><span>맞춤 디자인을 잘해줘요</span></li>
+      <li><b class="stars">★★★★★</b><span>상담이 자세해요</span></li>
     </ul>
-    <p class="price-note" style="margin-top:.8rem">※ 네이버 방문자 리뷰 키워드 선택 비율 (최근 리뷰 50개 기준)</p>
+    <p class="price-note" style="margin-top:.8rem">※ 네이버 방문자 리뷰에서 가장 많이 선택된 키워드</p>
     <div class="reviews-grid">
       <article class="review reveal">
         <div class="chips"><span>시술이 꼼꼼해요</span><span>상담이 자세해요</span><span>분위기가 편안해요</span></div>
