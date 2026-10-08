@@ -347,7 +347,12 @@
   .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; margin-top: 3rem; }
   .review { background: var(--white); border-radius: var(--radius); padding: 2rem; border: 1px solid rgba(154,107,116,.12); position: relative; }
   .review::before { content: '“'; position: absolute; top: 10px; right: 22px; font-family: var(--serif); font-size: 5rem; color: var(--blush); line-height: 1; }
-  .review .stars { color: var(--gold); letter-spacing: .15em; font-size: .85rem; margin-bottom: .8rem; }
+  .review .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .9rem; position: relative; }
+  .review .chips span { font-size: .7rem; color: var(--rose-deep); background: var(--blush); padding: .2rem .6rem; border-radius: 999px; }
+  .kw-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; max-width: 820px; margin: 2.4rem auto 0; }
+  .kw-stats li { text-align: center; padding: 1.1rem .6rem; border-radius: 18px; background: var(--white); border: 1px solid rgba(154,107,116,.12); }
+  .kw-stats li b { display: block; font-family: var(--serif); font-size: 1.9rem; font-weight: 500; color: var(--cocoa); line-height: 1; }
+  .kw-stats li span { font-size: .78rem; color: var(--mauve); }
   .review p { font-size: .95rem; color: #5b474c; font-weight: 300; margin-bottom: 1.2rem; position: relative; }
   .review .who { font-size: .8rem; color: var(--mauve); display: flex; align-items: center; gap: .6rem; }
   .review .who i { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--blush), var(--rose)); }
@@ -444,6 +449,8 @@
     .no-list { grid-template-columns: repeat(3,1fr); gap: .6rem; }
     .no-list li { padding: .9rem .4rem; }
     .service-grid, .reviews-grid { grid-template-columns: 1fr; }
+    .kw-stats { grid-template-columns: repeat(2,1fr); gap: .6rem; }
+    .kw-stats li b { font-size: 1.5rem; }
     .foot { grid-template-columns: 1fr; gap: 2rem; }
     footer { padding-bottom: 140px; }
     .float-kakao { bottom: 84px; right: 14px; padding: .8rem; }
@@ -671,12 +678,52 @@
     <div style="text-align:center" class="reveal">
       <span class="eyebrow" style="justify-content:center">Reviews</span>
       <h2 class="title">고객님들의 <em>진심</em></h2>
+      <p class="lead" style="margin:0 auto">네이버 플레이스에 남겨주신 <b>방문자 리뷰 81개</b> 중 실제 후기입니다.</p>
     </div>
+    <ul class="kw-stats reveal">
+      <li><b>92%</b><span>친절해요</span></li>
+      <li><b>88%</b><span>시술이 꼼꼼해요</span></li>
+      <li><b>46%</b><span>맞춤 디자인을 잘해줘요</span></li>
+      <li><b>38%</b><span>상담이 자세해요</span></li>
+    </ul>
+    <p class="price-note" style="margin-top:.8rem">※ 네이버 방문자 리뷰 키워드 선택 비율 (최근 리뷰 50개 기준)</p>
     <div class="reviews-grid">
-      <!-- 실제 네이버/인스타 후기로 교체해 주세요 -->
-      <article class="review reveal"><div class="stars">★★★★★</div><p>다른 곳에서 망친 눈썹 때문에 몇 년을 고민했는데, 브로우원에서 복원하고 나서 거울 보는 게 즐거워졌어요. 진짜 내 눈썹 같아요.</p><div class="who"><i></i><div><b>김○○님</b> · 눈썹 재건</div></div></article>
-      <article class="review reveal d1"><div class="stars">★★★★★</div><p>시술하고 바로 약속 나갔는데 아무도 눈치 못 챘어요. 피도 딱지도 정말 없었고, 원장님이 너무 꼼꼼하게 설명해주셔서 안심됐습니다.</p><div class="who"><i></i><div><b>이○○님</b> · 페더링</div></div></article>
-      <article class="review reveal d2"><div class="stars">★★★★★</div><p>분당 눈썹문신 여러 곳 알아보다가 후기 보고 왔는데 역시였어요. 얼굴형 보고 디자인 잡아주시는 게 전문가 느낌 확 났어요. 리터치도 기대 중!</p><div class="who"><i></i><div><b>박○○님</b> · 콤보 눈썹</div></div></article>
+      <article class="review reveal">
+        <div class="chips"><span>시술이 꼼꼼해요</span><span>상담이 자세해요</span><span>분위기가 편안해요</span></div>
+        <p>첫 눈썹문신이라 걱정이 많았는데 아프지도 않고 결과물도 너무너무 만족스러워요! 원장님께서 디자인을 정말 세심하게 봐주시고, 시술 중간중간에도 수정하고 싶은 부분이 있는지 계속 확인해 주셨어요. 제 얼굴에 잘 어울리는 모양으로 잡아주셔서 너무 마음에 들어요.</p>
+        <div class="who"><i></i><div><b>고슴도치7777</b> · 첫 눈썹문신</div></div>
+      </article>
+      <article class="review reveal d1">
+        <div class="chips"><span>시술이 꼼꼼해요</span><span>상담이 자세해요</span><span>매장이 청결해요</span></div>
+        <p>전후 비교사진 보니까 더 맘에 들어요. 촌스러운 일자눈썹 싫어서 눈썹잔흔제거 진행하고 눈썹문신 받았는데 진짜 자연스럽게 잘됐어요. 지금까지 받아본 눈썹문신 중에 제일 맘에 들어요!!</p>
+        <div class="who"><i></i><div><b>최진희1816</b> · 눈썹문신 제거 + 재시술</div></div>
+      </article>
+      <article class="review reveal d2">
+        <div class="chips"><span>맞춤 디자인을 잘해줘요</span><span>손이 빨라요</span><span>친절해요</span></div>
+        <p>눈썹문신이 오래되어 색이 변했거나, 너무 진해서 후회하고 있는 분들이라면 브로우원 추천해요! 진한 눈썹 때문에 답답해 보였던 인상에서 벗어나 훨씬 자연스럽고 부드러운 이미지를 찾게 되었어요.</p>
+        <div class="who"><i></i><div><b>271524</b> · 눈썹 재건·복원</div></div>
+      </article>
+      <article class="review reveal">
+        <div class="chips"><span>맞춤 디자인을 잘해줘요</span><span>자연스러워요</span><span>맞춤 케어를 잘해줘요</span></div>
+        <p>사장님 실력이 진짜 최고세요, 눈썹의 신. 대칭 진짜 심했는데 섬세하게 다 맞춰주셔서 전후 사진 보고 같이 비명 질렀네요. 지저분한 잔흔도 깔끔하게 해주셔서 완전 눈썹 새로 태어난 느낌!</p>
+        <div class="who"><i></i><div><b>기엽다미</b> · 비대칭 눈썹 교정</div></div>
+      </article>
+      <article class="review reveal d1">
+        <div class="chips"><span>시술이 꼼꼼해요</span><span>분위기가 편안해요</span><span>대화가 즐거워요</span></div>
+        <p>결과가 정말 자연스러워서 놀랐어요. 보통 눈썹문신 하고 나면 진해서 외출이 부담스럽다고 생각했는데, 여기서는 시술 직후에도 전혀 어색하지 않고 자연스럽게 잘 표현해 주셨어요. 당일에도 눈썹 예쁘다는 말을 들을 것 같아요!</p>
+        <div class="who"><i></i><div><b>kan****</b> · 페더링 눈썹문신</div></div>
+      </article>
+      <article class="review reveal d2">
+        <div class="chips"><span>시술이 꼼꼼해요</span><span>손이 빨라요</span><span>주차하기 편해요</span></div>
+        <p>입술 라인 착색이 심해서 시술받았어요! 시술 받은 날부터 메이크업 할 수 있어서 너무 좋았고, 거뭇한 라인에 자연스러운 색이 들어가니까 입술도 확장돼 보이고 너무 마음에 들어요. 강추해요!!</p>
+        <div class="who"><i></i><div><b>suk****</b> · 입술문신</div></div>
+      </article>
+    </div>
+    <div class="gallery-cta">
+      <a class="btn btn-naver" href="https://m.place.naver.com/place/2080201732/review/visitor" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h5.2l5.6 8.2V3H20v18h-5.2L9.2 12.8V21H4z"/></svg>
+        네이버 리뷰 81개 전체 보기
+      </a>
     </div>
   </div>
 </section>
