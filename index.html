@@ -285,14 +285,12 @@
     box-shadow: var(--shadow); overflow: hidden;
   }
   .hero-card::after {
-    content: 'BROW ONE';
-    position: absolute; inset: auto 0 36px; text-align: center;
-    font-family: var(--serif); font-style: italic; letter-spacing: .5em; font-size: .75rem; color: rgba(74,50,56,.55);
+    content: 'DIRECTOR · 최예림';
+    position: absolute; inset: auto 0 28px; text-align: center; z-index: 2;
+    font-family: var(--serif); font-style: italic; letter-spacing: .3em; font-size: .75rem; color: rgba(255,253,251,.9);
   }
-  .brow-art { position: absolute; left: 50%; top: 42%; transform: translate(-50%,-50%); width: 72%; }
-  .brow-art path { stroke: var(--cocoa); fill: none; stroke-linecap: round; stroke-width: 1.6; opacity: .85; }
-  .brow-art .hair { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw 1.6s ease forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .hero-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(74,50,56,.35)); z-index: 1; pointer-events: none; }
   .float-tag {
     position: absolute; background: rgba(255,253,251,.92); backdrop-filter: blur(8px);
     padding: .75rem 1.1rem; border-radius: 16px; box-shadow: 0 14px 40px -16px rgba(74,50,56,.35);
@@ -383,26 +381,16 @@
   .price-note { text-align: center; margin-top: 2rem; font-size: .85rem; color: var(--mauve); }
 
   /* Gallery */
-  .slider { position: relative; margin-top: 3rem; }
-  .track {
-    display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-    padding: 4px 0 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  .slider {
+    position: relative; margin-top: 3rem; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
-  .track::-webkit-scrollbar { display: none; }
-  .slide { flex: 0 0 calc((100% - 3rem) / 4); scroll-snap-align: start; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden; background: var(--blush); box-shadow: 0 10px 30px -18px rgba(74,50,56,.4); }
-  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
-  .slide:hover img { transform: scale(1.04); }
-  .slider-btn {
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
-    width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(154,107,116,.25);
-    background: rgba(255,253,251,.92); color: var(--cocoa); font-size: 1.6rem; line-height: 1; cursor: pointer;
-    display: grid; place-items: center; box-shadow: 0 10px 24px -12px rgba(74,50,56,.4); transition: background .2s, transform .2s;
-  }
-  .slider-btn:hover { background: var(--white); transform: translateY(-50%) scale(1.06); }
-  .slider-btn.prev { left: -23px; } .slider-btn.next { right: -23px; }
-  .dots { display: flex; justify-content: center; gap: 6px; margin-top: .8rem; }
-  .dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(154,107,116,.25); transition: all .3s; }
-  .dots i.on { width: 20px; border-radius: 3px; background: var(--rose-deep); }
+  .track { display: flex; gap: 1rem; width: max-content; padding: 4px 0 12px; animation: slide 48s linear infinite; }
+  .slider:hover .track { animation-play-state: paused; }
+  .slide { flex: 0 0 auto; width: 260px; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden; background: var(--blush); box-shadow: 0 10px 30px -18px rgba(74,50,56,.4); }
+  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @keyframes slide { to { transform: translateX(calc(-50% - .5rem)); } }
   .gallery-cta { text-align: center; margin-top: 2.4rem; }
 
   /* Process */
@@ -493,7 +481,6 @@
   /* Responsive */
   @media (max-width: 1024px) {
     .service-grid, .reviews-grid { grid-template-columns: repeat(2,1fr); }
-    .slide { flex-basis: calc((100% - 2rem) / 3); }
     .steps { grid-template-columns: repeat(2,1fr); gap: 2.5rem 1.5rem; }
     .steps::before { display: none; }
   }
@@ -509,7 +496,7 @@
     .hero-grid, .about-grid, .loc-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-cta .btn { flex: 1 1 100%; justify-content: center; }
     .hero-visual { width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: auto; }
-    .hero-card { position: relative; inset: auto; aspect-ratio: 5/4; border-radius: 160px 160px 24px 24px; }
+    .hero-card { position: relative; inset: auto; aspect-ratio: 4/5; max-width: 300px; margin: 0 auto; border-radius: 150px 150px 24px 24px; }
     .hero-tags { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: .8rem; }
     .float-tag { position: static; animation: none; padding: .8rem .9rem; border-radius: 14px; border: 1px solid rgba(154,107,116,.12); box-shadow: none; }
     .float-tag .dot { width: 30px; height: 30px; font-size: .85rem; }
@@ -523,8 +510,8 @@
     .no-list { grid-template-columns: repeat(3,1fr); gap: .6rem; }
     .no-list li { padding: .9rem .4rem; }
     .service-grid, .reviews-grid { grid-template-columns: 1fr; }
-    .slide { flex-basis: 78%; }
-    .slider-btn { display: none; }
+    .slide { width: 220px; }
+    .track { animation-duration: 40s; }
     .etc-care { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.6rem 1.3rem; }
     .etc-care p br { display: none; }
     .etc-care .btn { justify-self: stretch; justify-content: center; }
@@ -548,6 +535,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
+    .slider { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
     .reveal { opacity: 1; transform: none; }
   }
 </style>
@@ -605,11 +593,7 @@
     </div>
     <div class="hero-visual reveal d2">
       <div class="hero-card">
-        <svg class="brow-art" viewBox="0 0 300 120" aria-hidden="true">
-          <path class="hair" style="animation-delay:.1s" d="M34 94 Q42 71 57 63 M41 90 Q49 68 64 60 M48 87 Q56 65 71 58 M55 83 Q63 63 78 56 M63 80 Q70 60 85 54 M71 77 Q78 58 92 52 M79 75 Q86 56 100 50 M87 72 Q94 55 108 49 M95 70 Q103 53 116 47" opacity=".9"/>
-          <path class="hair" style="animation-delay:.35s" d="M104 68 Q111 52 124 47 M113 66 Q120 51 133 46 M123 65 Q129 50 142 45 M132 64 Q139 50 151 45 M142 63 Q148 50 160 45 M152 62 Q158 50 170 45 M162 62 Q168 50 180 46 M173 62 Q179 51 190 47 M184 62 Q190 51 200 48" opacity=".9"/>
-          <path class="hair" style="animation-delay:.6s" d="M195 63 Q201 53 211 49 M207 64 Q212 54 222 51 M219 65 Q224 56 233 53 M231 66 Q235 58 244 55 M243 68 Q248 60 256 58 M256 70 Q260 63 268 61 M269 73 Q273 66 280 64 M282 76 Q283 68 285 66" opacity=".85"/>
-        </svg>
+        <img class="hero-photo" src="images/director.jpg" alt="브로우원 최예림 원장" width="900" height="1125" fetchpriority="high">
       </div>
       <div class="hero-tags">
         <div class="float-tag tag1"><div class="dot">✦</div><div><b>페더링 전문</b><span>결 하나하나 살리는 자연눈썹</span></div></div>
@@ -737,8 +721,7 @@
       <h2 class="title">결과로 <em>증명</em>합니다</h2>
       <p class="lead" style="margin:0 auto">실제 브로우원 고객님들의 시술 전후 사진입니다.</p>
     </div>
-    <div class="slider reveal" id="slider">
-      <button class="slider-btn prev" aria-label="이전 사진" type="button">&#8249;</button>
+    <div class="slider reveal" aria-label="시술 전후 사진">
       <ul class="track">
         <li class="slide"><img src="images/gallery/ba-01.jpg" alt="브로우원 분당 눈썹문신 시술 전후 사진 1" loading="lazy" width="1000" height="1250"></li>
         <li class="slide"><img src="images/gallery/ba-02.jpg" alt="브로우원 분당 눈썹문신 시술 전후 사진 2" loading="lazy" width="1000" height="1250"></li>
@@ -748,9 +731,15 @@
         <li class="slide"><img src="images/gallery/ba-06.jpg" alt="브로우원 분당 눈썹문신 시술 전후 사진 6" loading="lazy" width="1000" height="1250"></li>
         <li class="slide"><img src="images/gallery/ba-07.jpg" alt="브로우원 분당 눈썹문신 시술 전후 사진 7" loading="lazy" width="1000" height="1250"></li>
         <li class="slide"><img src="images/gallery/ba-08.jpg" alt="브로우원 분당 눈썹문신 시술 전후 사진 8" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-01.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-02.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-03.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-04.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-05.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-06.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-07.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
+        <li class="slide" aria-hidden="true"><img src="images/gallery/ba-08.jpg" alt="" loading="lazy" width="1000" height="1250"></li>
       </ul>
-      <button class="slider-btn next" aria-label="다음 사진" type="button">&#8250;</button>
-      <div class="dots" aria-hidden="true"></div>
     </div>
     <div class="gallery-cta">
       <a class="btn btn-primary" href="https://www.instagram.com/browone_/" target="_blank" rel="noopener">더 많은 후기 보러가기 →</a>
@@ -968,20 +957,6 @@
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Before & After slider
-  const slider = document.getElementById('slider');
-  if (slider) {
-    const track = slider.querySelector('.track'), slides = [...track.children], dots = slider.querySelector('.dots');
-    slides.forEach((_, i) => { const d = document.createElement('i'); if (!i) d.className = 'on'; dots.appendChild(d); });
-    const step = () => slides[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap);
-    slider.querySelector('.prev').onclick = () => track.scrollBy({ left: -step(), behavior: 'smooth' });
-    slider.querySelector('.next').onclick = () => track.scrollBy({ left: step(), behavior: 'smooth' });
-    track.addEventListener('scroll', () => {
-      const i = Math.round(track.scrollLeft / step());
-      dots.querySelectorAll('i').forEach((d, k) => d.classList.toggle('on', k === i));
-    }, { passive: true });
-  }
 
   // Falling petals
   const petals = document.querySelector('.petals');
