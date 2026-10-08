@@ -35,6 +35,16 @@
 <meta name="twitter:description" content="뷰티과 전공 7년 경력. 출혈·딱지·짱구눈썹 없는 자연스러운 페더링. 분당 미금역 돌마로 67." />
 <meta name="twitter:image" content="https://browone.com/og.jpg" />
 
+<!-- Google Analytics 4 : GA_MEASUREMENT_ID 를 발급받은 G-XXXXXXXXXX 로 교체 -->
+<script>
+  window.GA_ID = 'G-XXXXXXXXXX';
+  if (/^G-[A-Z0-9]{6,}$/.test(window.GA_ID) && window.GA_ID !== 'G-XXXXXXXXXX') {
+    const g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID; document.head.appendChild(g);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', window.GA_ID, { anonymize_ip: true });
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -965,6 +975,28 @@
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Conversion tracking: CTA clicks -> GA4 events
+  const ctaMap = [
+    ['a[href*="open.kakao.com"]', 'kakao_chat'],
+    ['a[href*="map.naver.com"]', 'naver_booking'],
+    ['a[href*="m.place.naver.com"]', 'naver_reviews'],
+    ['a[href*="instagram.com"]', 'instagram'],
+  ];
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a'); if (!a || !window.gtag) return;
+    for (const [sel, name] of ctaMap) if (a.matches(sel)) {
+      const sec = a.closest('section, header, footer, .sticky-bar, .float-kakao');
+      gtag('event', 'cta_click', { cta: name, location: sec ? (sec.id || sec.className.split(' ')[0]) : 'unknown', link_text: a.textContent.trim().slice(0, 40) });
+      break;
+    }
+  });
+  // Scroll depth (25/50/75/100)
+  const marks = new Set();
+  addEventListener('scroll', () => {
+    const d = Math.round((scrollY + innerHeight) / document.documentElement.scrollHeight * 100);
+    for (const m of [25, 50, 75, 100]) if (d >= m && !marks.has(m)) { marks.add(m); window.gtag && gtag('event', 'scroll_depth', { percent: m }); }
+  }, { passive: true });
 
   // Falling petals
   const petals = document.querySelector('.petals');
