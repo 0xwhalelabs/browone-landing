@@ -433,7 +433,8 @@
           <button class="btn ghost block" id="saveCoupon">${ICON.save}쿠폰 이미지 저장</button>
         </div>
         <div class="c-links"><a class="link" href="${CFG.naver}" target="_blank" rel="noopener">네이버 예약 바로가기</a><a class="link" href="${CFG.kakao}" target="_blank" rel="noopener">카카오톡 문의</a></div>
-      </div></div>`;
+      </div></div>
+      <p class="c-note">${esc(cp.note)}</p>`;
   }
   function bindCoupon(c) {
     $('#copyCode', app).addEventListener('click', () => copy(c.code, '쿠폰 코드를 복사했어요'));

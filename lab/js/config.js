@@ -10,7 +10,8 @@ window.BROW_CONFIG = {
   info: ['분당 미금역 · 돌마로 67 지하1층 B121', '화–토 10:00–20:00 · 일·월·공휴일 휴무 · 100% 예약제'],
   utm: 'utm_source=browlab&utm_medium=beauty_test',
   // Coupon (operator 2026-10-28: real coupon checked at the salon, everyone wins 10,000 won;
-  // terms below confirmed by the operator the same day: 30 days, one per person, no stacking).
+  // terms below confirmed by the operator the same day: 30 days, one per person, no stacking;
+  // `note` = the small line under the coupon, operator 2026-10-28: "쿠폰 중복사용 및 중복할인 불가 명시").
   coupon: {
     amount: 10000,
     title: '브로우원 시술 1만원 할인권',
@@ -19,8 +20,9 @@ window.BROW_CONFIG = {
     salt: 'browone·lab·2026',
     terms: [
       '예약 후 방문 시 이 쿠폰 화면이나 저장한 이미지를 보여주세요',
-      '1인 1회 사용 · 다른 할인과 중복 사용 불가',
+      '1인 1회 사용',
       '발급일로부터 30일 안에 사용해 주세요'
-    ]
+    ],
+    note: '※ 쿠폰 중복 사용 및 중복 할인 불가'
   }
 };

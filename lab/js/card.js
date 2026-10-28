@@ -101,7 +101,7 @@
   async function coupon(c) {
     const CFG = window.BROW_CONFIG, cp = CFG.coupon, exp = window.BrowCoupon.expiry(c);
     const ymd = d => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
-    await fonts([cp.title, cp.terms.join(''), '10,000 0123456789 Brow Lab Lucky Draw', '원 할인권 당첨 발급 사용기한 까지 방문하실 때 이 이미지를 보여주세요', c.code, CFG.brand]);
+    await fonts([cp.title, cp.terms.join('') + cp.note, '10,000 0123456789 Brow Lab Lucky Draw', '원 할인권 당첨 발급 사용기한 까지 방문하실 때 이 이미지를 보여주세요', c.code, CFG.brand]);
     const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const x = cv.getContext('2d');
     x.fillStyle = COCOA; x.fillRect(0, 0, W, H);
     brow(x, W / 2, 300, 520, '#e8b4b8', 0.9);
@@ -128,6 +128,7 @@
     x.fillText(`발급 ${ymd(new Date(c.issued))}  ·  사용기한 ${ymd(exp)}까지`, W / 2, cut + 260);
     x.fillStyle = MAUVE; x.font = `500 28px ${UI}`; let y = cut + 340;
     cp.terms.forEach(s => { wrap(x, '· ' + s, tw - 160).forEach(l => { x.fillText(l, W / 2, y); y += 44; }); });
+    x.font = `500 24px ${UI}`; x.fillText(cp.note, W / 2, y + 6);
     x.fillStyle = INK; x.font = `700 34px ${KR}`; x.fillText('방문하실 때 이 이미지를 보여주세요', W / 2, tt + th - 64);
     // brand
     x.fillStyle = CREAM; x.font = `600 46px ${LAT}`; spaced(x, CFG.brand, W / 2, 1700, 16);
