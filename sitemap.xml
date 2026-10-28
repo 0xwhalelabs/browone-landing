@@ -14,4 +14,10 @@
     <image:image><image:loc>https://browone.com/images/gallery/ba-07.jpg</image:loc><image:title>브로우원 분당 눈썹문신 시술 전후</image:title></image:image>
     <image:image><image:loc>https://browone.com/images/gallery/ba-08.jpg</image:loc><image:title>브로우원 분당 눈썹문신 시술 전후</image:title></image:image>
   </url>
+  <url>
+    <loc>https://browone.com/lab/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
