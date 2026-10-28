@@ -7,7 +7,7 @@ window.BROW_CONFIG = {
   kakao: 'https://open.kakao.com/o/sjIElSWh',
   insta: 'https://www.instagram.com/browone_/',
   instaHandle: '@browone_',
-  info: ['분당 미금역 · 돌마로 67 지하1층 B121', '월–토 10:00–20:00 · 일·공휴일 휴무 · 100% 예약제'],
+  info: ['분당 미금역 · 돌마로 67 지하1층 B121', '화–토 10:00–20:00 · 일·월·공휴일 휴무 · 100% 예약제'],
   utm: 'utm_source=browlab&utm_medium=beauty_test',
   // Coupon (operator 2026-10-28: real coupon checked at the salon, everyone wins 10,000 won;
   // terms below confirmed by the operator the same day: 30 days, one per person, no stacking).
