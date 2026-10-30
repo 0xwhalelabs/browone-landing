@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=262b644a">
+<link rel="stylesheet" href="style.css?v=8b21fbc2">
 </head>
 <body>
 <header class="bar">
@@ -26,10 +26,13 @@
     <p class="lead">정면 사진을 올리고 눈썹 위치만 붓으로 칠해주세요.<br>브로우원 디자인을 하나씩 바꿔가며 미리 볼 수 있어요.</p>
     <label class="btn primary big" for="file">정면 사진 올리기</label>
     <input type="file" id="file" accept="image/*" hidden>
+    <div class="privacy-box">
+      <p class="privacy-title"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/></svg>사진은 고객님만 볼 수 있어요</p>
+      <p>올려주신 사진은 지금 쓰시는 기기 안에서만 처리돼요. 서버로 보내지거나 따로 저장되지 않아서 브로우원도&nbsp;볼&nbsp;수&nbsp;없어요.</p>
+    </div>
     <ul class="tips">
       <li>정면을 보고, 앞머리가 눈썹을 가리지 않게 찍어주세요</li>
       <li>밝고 고른 조명에서 찍은 사진일수록 자연스러워요</li>
-      <li>사진은 이 기기 안에서만 처리되고 어디에도 전송되지 않아요</li>
     </ul>
   </section>
 
@@ -64,6 +67,7 @@
           <button type="button" class="btn" id="restart">다른 사진</button>
           <button type="button" class="btn primary" id="toStep3">다음</button>
         </div>
+        <p class="privacy"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/></svg>사진은 고객님만 볼 수 있고, 따로 저장되지 않아요.</p>
       </div>
 
       <div class="pane" id="pane3" hidden>
@@ -113,6 +117,7 @@
         <div class="row">
           <button type="button" class="btn" id="back2">다시 칠하기</button>
         </div>
+        <p class="privacy"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/></svg>사진은 고객님만 볼 수 있고, 따로 저장되지 않아요. 이미지 저장을 누르면 고객님 기기에만 저장돼요.</p>
       </div>
     </aside>
   </section>
