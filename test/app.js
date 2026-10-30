@@ -35,7 +35,7 @@
     tool: 'brush', brush: 20,
     fit: null, e: null, up: null, Lavg: 0,
     clean: null, comp: null, cctx: null,
-    designs: [], di: 0, color: 'orig',
+    designs: [], di: 0, cat: '전체', color: 'orig',
     opts: { opacity: 0.85, erase: 0.9, ...SHAPE_DEFAULTS },
     nudge: [{ x: 0, y: 0 }, { x: 0, y: 0 }],
     showOrig: false,
@@ -44,7 +44,7 @@
   const el = {
     app: $('.app'), intro: $('#intro'), work: $('#work'), stage: $('#stage'), view: $('#view'),
     pane2: $('#pane2'), pane3: $('#pane3'), toast: $('#toast'), hold: $('#holdOrig'),
-    designs: $('#designs'), colors: $('#colors'),
+    designs: $('#designs'), filters: $('#filters'), colors: $('#colors'),
   };
   const vctx = el.view.getContext('2d');
 
@@ -591,16 +591,34 @@
     const od = og.getImageData(0, 0, cw, ch).data;
     const frame = measure(cw, ch, (x, y, i) => { const al = od[i * 4 + 3]; return al > 24 ? al / 255 : 0; });
     if (!frame) return null;
-    const design = { name: meta.name || '디자인', tag: meta.tag || '', canvas: out, frame, flip: !!meta.flip, tints: {} };
+    const design = { name: meta.name || '디자인', cat: meta.cat || '', tag: meta.tag || meta.cat || '', canvas: out, frame, flip: !!meta.flip, tints: {} };
     design.thumb = makeThumb(design);
     return design;
+  }
+
+  // 디자인을 많이 줄여 그리면(특히 사파리) 가는 결이 깨져요 → 반씩 미리 줄여둔 단계에서 2배 이내로만 줄여 그려요
+  const mips = new WeakMap();
+  function drawScaled(g, src, k) {
+    let lv = mips.get(src);
+    if (!lv) mips.set(src, (lv = [src]));
+    let i = 0;
+    while (k * 2 ** (i + 1) <= 1 && lv[i].width >= 32) {
+      i++;
+      if (!lv[i]) {
+        const p = lv[i - 1], c = makeCanvas(Math.round(p.width / 2), Math.round(p.height / 2)), cg = c.getContext('2d');
+        cg.imageSmoothingQuality = 'high';
+        cg.drawImage(p, 0, 0, c.width, c.height);
+        lv[i] = c;
+      }
+    }
+    g.drawImage(lv[i], 0, 0, src.width, src.height);
   }
 
   function makeThumb(d) {
     const W = 320, H = 120, c = makeCanvas(W, H), g = c.getContext('2d');
     g.fillStyle = '#f5e6de';
     g.fillRect(0, 0, W, H);
-    const T = d.frame, k = (W * 0.4) / T.len;
+    const T = d.frame, k = (W * 0.38) / T.len;
     g.globalCompositeOperation = 'multiply';
     g.imageSmoothingQuality = 'high';
     for (let i = 0; i < 2; i++) {
@@ -610,7 +628,7 @@
       g.scale(mirror ? -k : k, k);
       g.rotate(-T.a);
       g.translate(-T.cx, -T.cy);
-      g.drawImage(d.canvas, 0, 0);
+      drawScaled(g, d.canvas, k);
       g.restore();
     }
     c.className = 'thumb';
@@ -676,7 +694,7 @@
         c.save();
         c.translate(X.tx, X.ty); c.rotate(X.ang); c.scale(X.sx, X.sy);
         c.rotate(-X.T.a); c.translate(-X.T.cx, -X.T.cy);
-        c.drawImage(tex, 0, 0);
+        drawScaled(c, tex, Math.min(Math.abs(X.sx), Math.abs(X.sy)));
         c.restore();
       }
     }
@@ -759,8 +777,29 @@
 
   /* ───────── 디자인 목록·색상 UI ───────── */
 
+  const inCat = (d) => S.cat === '전체' || d.cat === S.cat;
+
+  function renderFilters() {
+    const cats = ['전체', ...new Set(S.designs.map((d) => d.cat).filter(Boolean))];
+    el.filters.hidden = cats.length < 3;   // 분류가 하나뿐이면 탭은 숨겨요
+    el.filters.replaceChildren(...cats.map((c) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'filter' + (c === S.cat ? ' on' : '');
+      b.textContent = c;
+      b.addEventListener('click', () => {
+        S.cat = c;
+        // 고른 디자인이 이 분류에 없으면 분류의 첫 디자인을 바로 얹어요
+        if (!S.designs[S.di] || !inCat(S.designs[S.di])) { const j = S.designs.findIndex(inCat); if (j >= 0) { S.di = j; scheduleCompose(); } }
+        renderFilters(); renderDesigns();
+        el.designs.scrollLeft = 0;
+      });
+      return b;
+    }));
+  }
+
   function renderDesigns() {
-    el.designs.replaceChildren(...S.designs.map((d, i) => {
+    el.designs.replaceChildren(...S.designs.map((d, i) => [d, i]).filter(([d]) => inCat(d)).map(([d, i]) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'design' + (i === S.di ? ' on' : '');
@@ -780,7 +819,7 @@
       b.type = 'button';
       b.className = 'chip' + (c.id === S.color ? ' on' : '');
       const sw = document.createElement('i');
-      sw.style.background = c.id === 'orig' ? 'linear-gradient(135deg, #8a6552 0 50%, #3f2b23 50% 100%)' : c.id;
+      sw.style.background = c.id === 'orig' ? 'linear-gradient(135deg, #a08b80 0 50%, #4a3c36 50% 100%)' : c.id;
       const label = document.createElement('span');
       label.textContent = c.name;
       label.style.whiteSpace = 'pre-line';
@@ -791,7 +830,9 @@
   }
 
   async function loadDesigns() {
-    for (const item of window.BROW_DESIGNS || []) {
+    const items = window.BROW_DESIGNS || [];
+    for (let n = 0; n < items.length; n++) {
+      const item = items[n];
       try {
         const src = item.sample ? window.drawSampleBrow(item.sample) : await loadImage(item.src);
         const d = prepDesign(src, item);
@@ -799,8 +840,11 @@
       } catch (err) {
         console.warn('디자인을 불러오지 못했어요:', item.name, err);
       }
+      // 디자인 하나 그릴 때마다 화면에 숨 쉴 틈을 줘요(첫 화면이 버벅이지 않게)
+      if (n % 4 === 3) { renderFilters(); renderDesigns(); }
+      await new Promise((r) => setTimeout(r, 0));
     }
-    renderDesigns();
+    renderFilters(); renderDesigns();
   }
 
   /* ───────── 이벤트 연결 ───────── */
@@ -850,7 +894,7 @@
 
   // 관리자 모드(?admin): 실제 디자인 PNG를 바로 올려서 시험해볼 수 있어요
   $$('.admin-only').forEach((n) => { n.hidden = !ADMIN; });
-  if (ADMIN) window.__brow = S;   // 콘솔에서 상태 확인용
+  if (ADMIN) Object.assign(window, { __brow: S, __compose: compose });   // 콘솔에서 상태 확인·다시 합성용
   $('#addDesign').addEventListener('change', async (e) => {
     for (const f of e.target.files) {
       const url = URL.createObjectURL(f);
@@ -861,7 +905,8 @@
       URL.revokeObjectURL(url);
     }
     e.target.value = '';
-    renderDesigns();
+    S.cat = '전체';
+    renderFilters(); renderDesigns();
     scheduleCompose();
   });
   $('#flipDesign').addEventListener('click', () => {
