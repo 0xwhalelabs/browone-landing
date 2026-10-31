@@ -831,10 +831,12 @@
 
   async function loadDesigns() {
     const items = window.BROW_DESIGNS || [];
+    const files = items.map((item) => loadImage(item.src).catch((err) => ({ err })));  // 한꺼번에 받기 시작하고 순서대로 준비
     for (let n = 0; n < items.length; n++) {
       const item = items[n];
       try {
-        const src = item.sample ? window.drawSampleBrow(item.sample) : await loadImage(item.src);
+        const src = await files[n];
+        if (src.err) throw src.err;
         const d = prepDesign(src, item);
         if (d) S.designs.push(d);
       } catch (err) {
