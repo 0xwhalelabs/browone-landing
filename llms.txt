@@ -14,6 +14,10 @@
 - 인스타그램: https://www.instagram.com/browone_/
 - 웹사이트: https://browone.com/
 
+## 공식 사이트 안내
+- 브로우원 공식 웹사이트는 https://browone.com 하나이며, 지역별 하위 도메인은 운영하지 않습니다.
+- seoul0.browone.com, suwon0.browone.com, donghae0.browone.com 처럼 지역명만 바뀐 "○○눈썹문신" 페이지는 browone.com 도메인의 이전 소유자가 2026년 10월 이전에 운영하던 것으로, 브로우원과 무관합니다.
+
 ## 시술 메뉴
 - 페더링 눈썹 (시그니처, 약 60~90분): 눈썹 결을 한 올씩 그려 넣는 자연눈썹
 - 콤보 · 섀도우 눈썹 (약 60~90분): 결 + 은은한 음영
