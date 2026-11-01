@@ -62,6 +62,8 @@ button, input { font: inherit; color: inherit; }
 .privacy-title svg { color: var(--rose-deep); flex: none; }
 .privacy { display: flex; align-items: flex-start; gap: 6px; margin: 0; font-size: .78rem; line-height: 1.55; color: var(--mauve); }
 .privacy svg { flex: none; margin-top: .22em; color: var(--rose-deep); }
+.owner { margin: -8px 0 0; font-size: .7rem; line-height: 1.5; color: var(--mauve); opacity: .75; }
+.intro .owner { max-width: 25em; margin-top: 30px; }
 
 .tips { list-style: none; padding: 0; margin: 22px 0 0; max-width: 25em; text-align: left; display: grid; gap: 10px; font-size: .9rem; color: var(--cocoa); }
 .tips li { position: relative; padding-left: 20px; line-height: 1.55; }
@@ -122,6 +124,9 @@ button, input { font: inherit; color: inherit; }
 
 .slider { display: grid; grid-template-columns: 7.2em 1fr; align-items: center; gap: 12px; font-size: .87rem; color: var(--cocoa); }
 .slider input { width: 100%; margin: 0; accent-color: var(--rose-deep); }
+.slider.sub { margin-top: -6px; }
+.slider.sub span { padding-left: 1.1em; font-size: .8rem; color: var(--mauve); }
+.slider.sub span::before { content: '└'; margin: 0 .3em 0 -1.1em; opacity: .55; }
 
 .row { display: flex; flex-wrap: wrap; gap: 8px; }
 .row .btn { flex: 1 1 auto; }
@@ -155,8 +160,9 @@ button, input { font: inherit; color: inherit; }
 .group summary::after { content: '+'; font-size: 1rem; line-height: 1; }
 .group[open] summary::after { content: '−'; }
 details.group { padding-top: 2px; }
-details.group[open] { gap: 14px; }
-details.group .btn { justify-self: start; }
+/* details 안은 grid gap이 안 먹어서 안쪽 상자로 간격을 줘요 */
+.group-body { display: grid; gap: 14px; padding-top: 14px; }
+.group-body .btn { justify-self: start; }
 
 .cta {
   display: grid; gap: 12px;

@@ -15,7 +15,7 @@
     { id: '#70645c', name: '애쉬\n브라운' },
     { id: '#3a3331', name: '소프트\n블랙' },
   ];
-  const SHAPE_DEFAULTS = { size: 1, thick: 1, angle: 0, height: 0, gap: 0 };
+  const SHAPE_DEFAULTS = { size: 1, thick: 1, angle: 0, angleL: 0, angleR: 0, height: 0, gap: 0 };
   const ADMIN = new URLSearchParams(location.search).has('admin');
 
   const $ = (s) => document.querySelector(s);
@@ -670,7 +670,7 @@
     return {
       tx: F.cx + S.up.x * lift + S.e.x * spread + S.nudge[i].x,
       ty: F.cy + S.up.y * lift + S.e.y * spread + S.nudge[i].y,
-      ang: F.a - side * o.angle * Math.PI / 180,   // +각도 = 양쪽 꼬리가 올라가요
+      ang: F.a - side * (o.angle + (i ? o.angleR : o.angleL)) * Math.PI / 180,   // +각도 = 꼬리가 올라가요(양쪽 + 한쪽씩)
       sx: mirror ? -k : k, sy: k * o.thick, T,
     };
   }

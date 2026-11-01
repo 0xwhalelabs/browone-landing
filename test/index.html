@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=9f90e7cb">
+<link rel="stylesheet" href="style.css?v=218c96e5">
 </head>
 <body>
 <header class="bar">
@@ -34,6 +34,7 @@
       <li>정면을 보고, 앞머리가 눈썹을 가리지 않게 찍어주세요</li>
       <li>밝고 고른 조명에서 찍은 사진일수록 자연스러워요</li>
     </ul>
+    <p class="owner">© BROW ONE · 본 시뮬레이터는 브로우원이 자체 개발했으며, 타 업체의 사용을 금합니다.</p>
   </section>
 
   <section class="work" id="work" hidden>
@@ -92,12 +93,16 @@
 
         <details class="group">
           <summary>모양 조절</summary>
-          <label class="slider"><span>크기</span><input type="range" data-opt="size" min="0.8" max="1.2" step="0.01" value="1"></label>
-          <label class="slider"><span>두께</span><input type="range" data-opt="thick" min="0.7" max="1.4" step="0.01" value="1"></label>
-          <label class="slider"><span>꼬리 각도</span><input type="range" data-opt="angle" min="-12" max="12" step="0.5" value="0"></label>
-          <label class="slider"><span>높이</span><input type="range" data-opt="height" min="-0.25" max="0.25" step="0.005" value="0"></label>
-          <label class="slider"><span>미간</span><input type="range" data-opt="gap" min="-0.15" max="0.15" step="0.005" value="0"></label>
-          <button type="button" class="btn small" id="resetShape">조절 초기화</button>
+          <div class="group-body">
+            <label class="slider"><span>크기</span><input type="range" data-opt="size" min="0.8" max="1.2" step="0.01" value="1"></label>
+            <label class="slider"><span>두께</span><input type="range" data-opt="thick" min="0.7" max="1.4" step="0.01" value="1"></label>
+            <label class="slider"><span>꼬리 각도</span><input type="range" data-opt="angle" min="-12" max="12" step="0.5" value="0"></label>
+            <label class="slider sub"><span>왼쪽만</span><input type="range" data-opt="angleL" min="-12" max="12" step="0.5" value="0"></label>
+            <label class="slider sub"><span>오른쪽만</span><input type="range" data-opt="angleR" min="-12" max="12" step="0.5" value="0"></label>
+            <label class="slider"><span>높이</span><input type="range" data-opt="height" min="-0.25" max="0.25" step="0.005" value="0"></label>
+            <label class="slider"><span>미간</span><input type="range" data-opt="gap" min="-0.15" max="0.15" step="0.005" value="0"></label>
+            <button type="button" class="btn small" id="resetShape">조절 초기화</button>
+          </div>
         </details>
 
         <p class="hint">눈썹을 끌어서 한쪽씩 위치를 옮길 수 있어요. 결과는 시술 전 참고용 예시예요.</p>
@@ -119,12 +124,13 @@
           <button type="button" class="btn" id="back2">다시 칠하기</button>
         </div>
         <p class="privacy"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3H9z"/></svg>사진은 고객님만 볼 수 있고, 따로 저장되지 않아요. 이미지 저장을 누르면 고객님 기기에만 저장돼요.</p>
+        <p class="owner">© BROW ONE · 본 시뮬레이터는 브로우원이 자체 개발했으며, 타 업체의 사용을 금합니다.</p>
       </div>
     </aside>
   </section>
 </main>
 
 <script src="brows.js?v=70e23cef"></script>
-<script src="app.js?v=e5cbca99"></script>
+<script src="app.js?v=77cbfb86"></script>
 </body>
 </html>
