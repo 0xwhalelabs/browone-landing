@@ -3,10 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>눈썹 미리보기 · BROW ONE</title>
-<meta name="description" content="정면 사진에 브로우원 눈썹 디자인을 미리 얹어보세요. 사진은 기기 밖으로 전송되지 않아요.">
-<meta name="robots" content="noindex, nofollow">
+<title>눈썹 미리보기 · 내 얼굴에 눈썹문신 디자인 얹어보기 | 브로우원</title>
+<meta name="description" content="상담 전에 정면 사진에 브로우원 눈썹 디자인(자연눈썹·콤보·섀도우·남성)을 미리 얹어보세요. 사진은 기기 밖으로 전송되지 않아요.">
+<link rel="canonical" href="https://browone.com/preview/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="브로우원 BROWONE">
+<meta property="og:title" content="눈썹 미리보기 · 내 얼굴에 눈썹 얹어보기 | 브로우원">
+<meta property="og:description" content="정면 사진 한 장으로 브로우원 눈썹 디자인을 바꿔가며 미리 보고, 저장해서 상담 때 보여주세요.">
+<meta property="og:url" content="https://browone.com/preview/">
+<meta property="og:image" content="https://browone.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.png">
+<script>
+  // GA4, same property as the homepage. Only page views and button clicks are sent — the photo never leaves the device.
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  if (location.hostname === 'browone.com') {
+    const g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-27BL3MEWP0'; document.head.appendChild(g);
+    gtag('js', new Date()); gtag('config', 'G-27BL3MEWP0', { anonymize_ip: true });
+  }
+  document.addEventListener('change', e => { if (e.target.id === 'file' && e.target.files.length) gtag('event', 'preview_photo'); });
+  document.addEventListener('click', e => {
+    const el = e.target.closest('a, button'); if (!el) return;
+    if (el.id === 'save') gtag('event', 'preview_save');
+    else if (el.matches('a[href*="open.kakao.com"]')) gtag('event', 'cta_click', { cta: 'kakao_chat', location: 'preview' });
+    else if (el.matches('a[href*="map.naver.com"]')) gtag('event', 'cta_click', { cta: 'naver_booking', location: 'preview' });
+  });
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">

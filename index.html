@@ -409,6 +409,33 @@
   @keyframes slide { to { transform: translateX(calc(-50% - .5rem)); } }
   .gallery-cta { text-align: center; margin-top: 2.4rem; }
 
+  /* Brow preview (browone.com/preview) */
+  .preview-link {
+    display: flex; align-items: center; gap: .9rem; max-width: 470px; margin-top: 1rem;
+    padding: .8rem 1.1rem .8rem .85rem; border-radius: 18px;
+    background: rgba(255,253,251,.7); border: 1px dashed var(--rose-deep);
+    transition: transform .25s ease, background .25s, box-shadow .25s;
+  }
+  .preview-link:hover { transform: translateY(-2px); background: var(--white); box-shadow: 0 14px 34px -18px rgba(74,50,56,.45); }
+  .pv-ic { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blush); color: var(--rose-deep); flex: none; }
+  .pv-ic svg { width: 24px; height: 24px; }
+  .pv-txt b { display: block; color: var(--cocoa); font-size: .95rem; font-weight: 600; line-height: 1.4; }
+  .pv-txt small { display: block; color: var(--mauve); font-size: .78rem; line-height: 1.5; word-break: keep-all; }
+  .pv-go { margin-left: auto; font-family: var(--serif); font-size: 1.4rem; color: var(--rose-deep); transition: transform .25s; }
+  .preview-link:hover .pv-go { transform: translateX(3px); }
+  .pv-band { padding-top: 0; }
+  .pv-card {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center;
+    background: linear-gradient(135deg, var(--white), var(--blush)); border: 1px solid rgba(154,107,116,.15);
+    border-radius: var(--radius); padding: clamp(1.8rem, 4vw, 3.2rem); box-shadow: var(--shadow);
+  }
+  .pv-card p { color: #5b474c; font-weight: 300; }
+  .pv-points { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.4rem; }
+  .pv-points li { padding: .7rem 1rem; background: rgba(255,253,251,.85); border-radius: 14px; }
+  .pv-points b { display: block; color: var(--cocoa); font-size: .92rem; font-weight: 600; }
+  .pv-points span { color: var(--mauve); font-size: .78rem; }
+  .pv-side .btn { width: 100%; justify-content: center; }
+
   /* Process */
   .process { background: var(--cocoa); color: var(--blush); }
   .process .eyebrow { color: var(--rose); } .process .eyebrow::before { background: var(--rose); }
@@ -503,14 +530,18 @@
     .steps { grid-template-columns: repeat(2,1fr); gap: 2.5rem 1.5rem; }
     .steps::before { display: none; }
   }
-  @media (max-width: 820px) {
-    .nav ul, .nav > .btn { display: none; }
-    .burger { display: flex; }
+  /* 7 menu items need ~1180px in one line; below that the menu folds into the burger */
+  @media (max-width: 1180px) {
+    .nav ul { display: none; }
+    .nav > .btn { margin: 0 .8rem 0 auto; }
+    .burger { display: flex; position: relative; z-index: 45; }
     .nav ul.open { display: flex; position: fixed; inset: 0; background: var(--cream); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; font-size: 1.3rem; font-family: var(--kserif); z-index: 40; }
     .burger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .burger.open span:nth-child(2) { opacity: 0; }
     .burger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-    .burger { position: relative; z-index: 45; }
+  }
+  @media (max-width: 820px) {
+    .nav > .btn { display: none; }
     .hero { padding: 110px 0 70px; min-height: auto; }
     .hero-grid, .about-grid, .loc-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-cta .btn { flex: 1 1 100%; justify-content: center; }
@@ -533,6 +564,8 @@
     .etc-care { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.6rem 1.3rem; }
     .etc-care p br { display: none; }
     .etc-care .btn { justify-self: stretch; justify-content: center; }
+    .preview-link { max-width: none; }
+    .pv-card { grid-template-columns: 1fr; gap: 1.6rem; }
     .kw-stats { grid-template-columns: repeat(2,1fr); gap: .6rem; }
     .kw-stats li .stars { font-size: 1rem; }
     .foot { grid-template-columns: 1fr; gap: 2rem; }
@@ -569,6 +602,7 @@
       <li><a href="#about">브로우원</a></li>
       <li><a href="#menu-section">시술 메뉴</a></li>
       <li><a href="#gallery">Before &amp; After</a></li>
+      <li><a href="preview/">눈썹 미리보기</a></li>
       <li><a href="#process">시술 과정</a></li>
       <li><a href="#faq">자주 묻는 질문</a></li>
       <li><a href="#location">오시는 길</a></li>
@@ -603,6 +637,11 @@
         </a>
         <a class="btn btn-outline" href="https://map.naver.com/p/entry/place/2080201732?placePath=/ticket" target="_blank" rel="noopener">네이버 예약하기 →</a>
       </div>
+      <a class="preview-link" href="preview/">
+        <span class="pv-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 15c2.6-3.6 6.4-5.3 10.6-5 3.2.2 5.9 1.4 8.4 3.2"/></svg></span>
+        <span class="pv-txt"><b>상담 전, 내 얼굴에 눈썹 미리 얹어보기</b><small>정면 사진 한 장으로 디자인을 바꿔가며 바로 확인해요</small></span>
+        <span class="pv-go" aria-hidden="true">→</span>
+      </a>
       <div class="hero-meta">
         <div><b>7<span style="font-size:1rem">년+</span></b><span>뷰티과 전공 · 경력</span></div>
         <div><b>0</b><span>출혈 · 딱지 · 짱구눈썹</span></div>
@@ -761,6 +800,27 @@
     </div>
     <div class="gallery-cta">
       <a class="btn btn-primary" href="https://www.instagram.com/browone_/" target="_blank" rel="noopener">더 많은 후기 보러가기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BROW PREVIEW -->
+<section id="brow-preview" class="pv-band">
+  <div class="wrap">
+    <div class="pv-card reveal">
+      <div>
+        <span class="eyebrow">Brow Preview</span>
+        <h2 class="title">시술 전에 먼저,<br><em>내 얼굴에</em> 얹어보세요</h2>
+        <p>정면 사진을 올리고 눈썹 자리만 붓으로 칠하면, 브로우원 눈썹 디자인을 하나씩 바꿔가며 미리 볼 수 있어요. 마음에 드는 모양을 저장해 상담 때 보여주시면 원하는 느낌이 더 정확하게 전해져요.</p>
+      </div>
+      <div class="pv-side">
+        <ul class="pv-points">
+          <li><b>자연눈썹 · 콤보 · 섀도우 · 남성</b><span>색상 · 진하기 · 모양까지 조절</span></li>
+          <li><b>사진은 기기 안에서만</b><span>서버로 보내지거나 저장되지 않아요</span></li>
+          <li><b>설치 없이 바로</b><span>휴대폰 브라우저에서 바로 열려요</span></li>
+        </ul>
+        <a class="btn btn-primary" href="preview/">눈썹 미리보기 시작하기 →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -982,6 +1042,7 @@
     ['a[href*="map.naver.com"]', 'naver_booking'],
     ['a[href*="m.place.naver.com"]', 'naver_reviews'],
     ['a[href*="instagram.com"]', 'instagram'],
+    ['a[href="preview/"]', 'brow_preview'],
   ];
   document.addEventListener('click', e => {
     const a = e.target.closest('a'); if (!a || !window.gtag) return;
