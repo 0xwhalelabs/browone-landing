@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AR 눈썹 거울 · 카메라로 바로 얹어보는 눈썹 | 브로우원</title>
+<meta name="description" content="카메라를 켜면 브로우원 눈썹 디자인과 립 틴트가 얼굴을 따라 실시간으로 얹혀요. 영상은 기기 밖으로 나가지 않아요.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.png">
+<script>
+  // GA4, same property as the homepage. Only page views and button clicks are sent — the camera image never leaves the device.
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  if (location.hostname === 'browone.com') {
+    const g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-27BL3MEWP0'; document.head.appendChild(g);
+    gtag('js', new Date()); gtag('config', 'G-27BL3MEWP0', { anonymize_ip: true });
+  }
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('a'); if (!el) return;
+    if (el.matches('a[href*="open.kakao.com"]')) gtag('event', 'cta_click', { cta: 'kakao_chat', location: 'ar' });
+    else if (el.matches('a[href*="map.naver.com"]')) gtag('event', 'cta_click', { cta: 'naver_booking', location: 'ar' });
+  });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="ar.css?v=6e7c7e31">
+</head>
+<body>
+<header class="bar">
+  <a class="logo" href="https://browone.com/">BROW ONE</a>
+  <span class="bar-tag">AR 눈썹 거울</span>
+</header>
+
+<main>
+  <!-- 시작 화면 -->
+  <section id="start" class="intro">
+    <p class="kicker">Brow Mirror</p>
+    <h1>카메라를 켜면<br><em>눈썹이 따라와요</em></h1>
+    <p class="lead">사진 올리고 칠할 필요 없이, 거울 보듯 비춰 보세요.<br>고개를 돌리고 웃어도 브로우원 디자인이 얼굴을 따라 움직여요.</p>
+    <button id="go" class="btn primary" type="button">카메라 켜기</button>
+    <p id="startMsg" class="start-msg" hidden></p>
+    <div class="privacy">
+      <p class="pv-title"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>영상은 고객님 기기 안에서만</p>
+      <p>얼굴 인식은 지금 쓰시는 기기 안에서만 돌아가요.<br>영상이 서버로 가거나 저장되지 않아서 브로우원도 볼 수 없어요.</p>
+    </div>
+    <ul class="tips">
+      <li>밝은 곳에서, 얼굴이 화면 가운데 오게 비춰 주세요</li>
+      <li>앞머리가 눈썹을 가리지 않게 넘겨 주세요</li>
+    </ul>
+    <p class="alt">카메라가 어렵다면 <a href="../preview/">사진으로 해보기 →</a></p>
+  </section>
+
+  <!-- 거울 화면 -->
+  <section id="mirror" hidden>
+    <div class="stage" id="stage">
+      <video id="cam" playsinline muted></video>
+      <canvas id="view"></canvas>
+      <div class="pill" id="status">얼굴 찾는 중…</div>
+      <div class="hint" id="hint" hidden>얼굴을 화면 가운데에 맞춰 주세요</div>
+      <div class="dock">
+        <button id="compare" class="ghost" type="button">누르고 있으면<br>원래 얼굴</button>
+        <button id="shot" class="shutter" type="button" aria-label="사진 찍기"><span></span></button>
+        <button id="stop" class="ghost" type="button">카메라<br>끄기</button>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-tab="brow" type="button">눈썹</button>
+        <button class="tab" data-tab="lip" type="button">립 틴트</button>
+      </div>
+
+      <div class="pane" id="pane-brow">
+        <div class="chips" id="cats"></div>
+        <div class="designs" id="designs"></div>
+        <p class="dname"><b id="dname">—</b> <span id="dtag"></span></p>
+        <div class="chips colors" id="colors"></div>
+        <label class="sl"><span>진하기</span><input id="opacity" type="range" min="0.3" max="1" step="0.01" value="0.85"></label>
+        <label class="sl"><span>원래 눈썹 지우기</span><input id="erase" type="range" min="0" max="1" step="0.01" value="0.55"></label>
+        <label class="sl"><span>높이</span><input id="lift" type="range" min="-0.14" max="0.14" step="0.005" value="0"></label>
+        <label class="sl"><span>크기</span><input id="size" type="range" min="0.85" max="1.2" step="0.01" value="1"></label>
+      </div>
+
+      <div class="pane" id="pane-lip" hidden>
+        <div class="swatches" id="lips"></div>
+        <label class="sl"><span>진하기</span><input id="lipAmt" type="range" min="0.2" max="1" step="0.01" value="0.6"></label>
+        <p class="note">화면 색은 조명과 화면에 따라 달라 보여요. 실제 색은 상담 때 피부 톤에 맞춰 함께 골라요.</p>
+      </div>
+
+      <p class="disclaimer">화면 속 모습은 미리보기예요. 실제 시술 결과는 피부와 결, 상담 내용에 따라 달라져요.</p>
+    </aside>
+  </section>
+
+  <!-- 찍은 사진 -->
+  <div class="modal" id="modal" hidden>
+    <div class="sheet">
+      <img id="shotImg" alt="AR 미리보기 사진">
+      <p class="cta-title">이미지를 저장하고<br>원장님께 상담받아보세요!</p>
+      <div class="cta-row">
+        <a id="save" class="btn primary" download="browone-ar.jpg">이미지 저장</a>
+        <a class="btn kakao" href="https://open.kakao.com/o/sjIElSWh" target="_blank" rel="noopener">카카오톡 상담</a>
+        <a class="btn naver" href="https://map.naver.com/p/entry/place/2080201732?placePath=/ticket" target="_blank" rel="noopener">네이버 예약</a>
+      </div>
+      <p class="ios-note">아이폰은 사진을 길게 눌러 ‘사진에 저장’을 눌러 주세요.</p>
+      <button id="close" class="btn line" type="button">계속 비춰 보기</button>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">© BROW ONE · 본 시뮬레이터는 브로우원이 자체 개발했으며, 타 업체의 사용을 금합니다.</footer>
+
+<script src="../preview/brows.js?v=70e23cef"></script>
+<script type="module" src="ar.js?v=1fcdb9ed"></script>
+</body>
+</html>
